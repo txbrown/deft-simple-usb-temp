@@ -15,7 +15,7 @@ Supports
 
 ### Logging
 
-Loggers are instantiated using the [deft-log](https://github.com/didactek/deft-log.git) library
+<!-- Loggers are instantiated using the [deft-log](https://github.com/didactek/deft-log.git) library -->
 using the label prefix `com.didactek.deft-simple-usb`.
 
 ## Requirements

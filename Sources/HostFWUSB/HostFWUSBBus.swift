@@ -11,10 +11,10 @@
 #else
 import Foundation
 import IOUSBHost
-import DeftLog
+import Logger
 import SimpleUSB
 
-let logger = DeftLog.logger(label: "com.didactek.deft-simple-usb.host-fw-usb")
+let logger = Logger()
 // FIXME: how to default configuration to debug?
 
 
@@ -61,7 +61,10 @@ public class FWUSBBus: USBBus {
         let service = existing
         #endif
 
-        let device = try IOUSBHostDevice.init(__ioService: service, options: [/*.deviceCapture*/], queue: nil, interestHandler: nil)
+        IOServiceAuthorize(service, 0)
+        let queue = DispatchQueue(label: "usb.queue")
+
+        let device = try IOUSBHostDevice.init(__ioService: service, options: [.deviceCapture], queue: queue, interestHandler: nil)
 
         return try FWUSBDevice(device: device)
     }

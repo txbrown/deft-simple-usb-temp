@@ -40,13 +40,13 @@ import HostFWUSB
 public class PortableUSB {
     /// Obtain a USBBus approriate for this platform.
     public static func platformBus() -> USBBus {
-        #if USE_LIBUSB
-        return LUUSBBus()
-        #endif
+        // #if USE_LIBUSB
+        // return LUUSBBus()
+        // #endif
 
-        #if USE_FWUSB
+        // #if USE_FWUSB
         return FWUSBBus()
-        #endif
+        // #endif
     }
 }
 

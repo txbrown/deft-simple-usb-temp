@@ -50,10 +50,11 @@ let package = Package(
         .library(
             name: "PortableUSB",
             targets: ["PortableUSB"]),
+        .library(
+            name: "Logger",
+            targets: ["Logger"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/didactek/deft-log.git", from: "0.0.1"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -64,11 +65,12 @@ let package = Package(
             dependencies: [
                 "CLibUSB",
                 "SimpleUSB",
-                .product(name: "DeftLog", package: "deft-log")],
+                "Logger"
+                ],
             swiftSettings: [.define("SKIPMODULE", .when(platforms: [.macOS]))]),
         .target(
             name: "HostFWUSB",
-            dependencies: ["SimpleUSB", .product(name: "DeftLog", package: "deft-log")],
+            dependencies: ["SimpleUSB", "Logger"],
             swiftSettings: [.define("SKIPMODULE", .when(platforms: [.linux]))]),
         .target(
             name: "PortableUSB",
@@ -82,6 +84,9 @@ let package = Package(
             ]),
         .target(
             name: "SimpleUSB",
+            dependencies: ["Logger"]),
+        .target(
+            name: "Logger",
             dependencies: []),
         // FIXME: this generates a warning on macOS, even though the library is not needed
         .systemLibrary(
